@@ -84,22 +84,23 @@ Exported the cleaned version of the dataset:
 
 df_news.to_json("news_clean.json", orient='records', lines=True)
 
-📦 Output Files
+## 📦 Output Files
 
 news_clean.json → Final cleaned dataset ready for NLP analysis.
 
-📊 Summary
+## 📊 Summary
 Step	Issue Identified	Action Taken
 Duplicates	Multiple identical rows	Removed using drop_duplicates()
 Text Case	Mixed uppercase/lowercase	Converted to lowercase
 Punctuation	Presence of symbols and marks	Removed using Regular Expressions
 Stopwords	Frequent common words	Removed using NLTK stopwords
 Tokenization	Continuous text	Split into tokens using word_tokenize()
-✅ Final Outcome
+
+## ✅ Final Outcome
 
 The News Category dataset was successfully cleaned and transformed into a standardized format suitable for text mining and NLP modeling.
 The final JSON file can now be used for advanced analytics like topic detection, classification, and sentiment analysis.
 
-👨‍💻 Author
+## 👨‍💻 Author
 
 Alone Mpitula
