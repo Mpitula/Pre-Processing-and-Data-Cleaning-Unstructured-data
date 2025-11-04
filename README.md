@@ -1,69 +1,105 @@
-# News Category Dataset Text Cleaning
+You can copy and save this as README.md in your project folder.
+
+# 📰 News Category Dataset Cleaning and Preprocessing
 
 ## 📘 Project Title
-**News Category Dataset Cleaning and Preprocessing**
+**News Category Dataset (Unstructured Data Cleaning)**
 
 ---
 
 ## 📄 Description
-This project focuses on cleaning and preparing **unstructured text data** from the News Category Dataset (Kaggle).  
-The dataset contains news headlines and descriptions across various categories.  
-The goal is to clean and tokenize the text for further NLP analysis.
+This project focuses on cleaning and preprocessing **unstructured text data** from the [News Category Dataset](https://www.kaggle.com/datasets/rmisra/news-category-dataset) by Rishabh Misra.  
+The dataset contains news headlines and short descriptions across multiple categories.  
+The goal of this project is to prepare the text for **Natural Language Processing (NLP)** tasks such as sentiment analysis, topic modeling, or classification.
 
 ---
 
 ## 🧠 Objectives
 1. Load the JSON dataset into Pandas.  
 2. Remove duplicate records.  
-3. Convert text to lowercase.  
+3. Convert all text to lowercase.  
 4. Remove punctuation and stopwords.  
-5. Tokenize text into words.  
+5. Tokenize text into individual words.  
 6. Save the cleaned version as `news_clean.json`.
 
 ---
 
-## ⚙️ Tools & Libraries
-- Python  
-- Pandas  
-- NLTK  
-- Regular Expressions (`re`)
+## ⚙️ Tools & Libraries Used
+- **Python**  
+- **Pandas** — for data loading and manipulation  
+- **NLTK** — for text preprocessing and tokenization  
+- **Regular Expressions (re)** — for removing punctuation and symbols  
 
 ---
 
 ## 🪜 Steps Performed
 
-### 1. Data Loading
-Loaded the dataset using:
+### 1. Load the Dataset
+Loaded the JSON dataset using Pandas:
 ```python
-pd.read_json("News_Category_Dataset_v3.json", lines=True)
+import pandas as pd
+df_news = pd.read_json("News_Category_Dataset_v3.json", lines=True)
 
-### 2. Removing Duplicates
-Removed identical entries using:
-```python
-    df_news.drop_duplicates(inplace=True)
+### 2. Remove Duplicates
 
+Dropped all duplicate records to ensure data consistency:
 
-### 3. Text Normalization
-Converted all text columns (headline, short_description) to lowercase.
+df_news.drop_duplicates(inplace=True)
 
-### 4. Noise Removal
+### 3. Convert Text to Lowercase
 
-Removed punctuation using Regular Expressions (re.sub).
+Standardized text to lowercase for uniformity:
 
-Removed stopwords using NLTK’s English stopword list.
+df_news['headline'] = df_news['headline'].str.lower()
+df_news['short_description'] = df_news['short_description'].str.lower()
 
-### 5. Tokenization
+### 4. Remove Punctuation and Stopwords
 
-Split text into individual words using:
-```python
-    word_tokenize()
+Used Regular Expressions and NLTK to clean the text:
 
-### 6. Exporting Cleaned Data
+import re
+from nltk.corpus import stopwords
+stop_words = set(stopwords.words('english'))
 
-Saved the cleaned dataset as:
-```pgsql
-    news_clean.json
+def clean_text(text):
+    text = re.sub(r'[^\w\s]', '', text)     # remove punctuation
+    words = text.split()
+    words = [word for word in words if word not in stop_words]
+    return ' '.join(words)
+
+df_news['headline'] = df_news['headline'].apply(clean_text)
+df_news['short_description'] = df_news['short_description'].apply(clean_text)
+
+### 5. Tokenize Text
+
+Split text into individual words (tokens):
+
+from nltk.tokenize import word_tokenize
+df_news['headline_tokens'] = df_news['headline'].apply(word_tokenize)
+df_news['short_description_tokens'] = df_news['short_description'].apply(word_tokenize)
+
+### 6. Save the Cleaned Dataset
+
+Exported the cleaned version of the dataset:
+
+df_news.to_json("news_clean.json", orient='records', lines=True)
 
 📦 Output Files
 
-news_clean.json — cleaned unstructured dataset ready for NLP.
+news_clean.json → Final cleaned dataset ready for NLP analysis.
+
+📊 Summary
+Step	Issue Identified	Action Taken
+Duplicates	Multiple identical rows	Removed using drop_duplicates()
+Text Case	Mixed uppercase/lowercase	Converted to lowercase
+Punctuation	Presence of symbols and marks	Removed using Regular Expressions
+Stopwords	Frequent common words	Removed using NLTK stopwords
+Tokenization	Continuous text	Split into tokens using word_tokenize()
+✅ Final Outcome
+
+The News Category dataset was successfully cleaned and transformed into a standardized format suitable for text mining and NLP modeling.
+The final JSON file can now be used for advanced analytics like topic detection, classification, and sentiment analysis.
+
+👨‍💻 Author
+
+Alone Mpitula
