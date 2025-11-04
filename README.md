@@ -33,10 +33,10 @@ The goal of this project is to prepare the text for **Natural Language Processin
 ---
 
 ## 🪜 Steps Performed
-
+```python
 ### 1. Load the Dataset
 Loaded the JSON dataset using Pandas:
-```python
+
 import pandas as pd
 df_news = pd.read_json("News_Category_Dataset_v3.json", lines=True)
 
@@ -84,7 +84,7 @@ Exported the cleaned version of the dataset:
 
 df_news.to_json("news_clean.json", orient='records', lines=True)
 
-## 📦 Output Files
+### 📦 Output Files
 
 news_clean.json → Final cleaned dataset ready for NLP analysis.
 
@@ -96,11 +96,3 @@ Punctuation	Presence of symbols and marks	Removed using Regular Expressions
 Stopwords	Frequent common words	Removed using NLTK stopwords
 Tokenization	Continuous text	Split into tokens using word_tokenize()
 
-## ✅ Final Outcome
-
-The News Category dataset was successfully cleaned and transformed into a standardized format suitable for text mining and NLP modeling.
-The final JSON file can now be used for advanced analytics like topic detection, classification, and sentiment analysis.
-
-## 👨‍💻 Author
-
-Alone Mpitula
